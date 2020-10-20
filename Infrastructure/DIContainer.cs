@@ -17,7 +17,7 @@ namespace Infrastructure
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUnitOfWork, SqlContext>();
+            //services.AddScoped<IUnitOfWork, SqlContext>();
             services.AddScoped<IDbContext, SqlContext>();
 
             services.AddScoped<IWorkshopRepository, WorkshopRepository>();

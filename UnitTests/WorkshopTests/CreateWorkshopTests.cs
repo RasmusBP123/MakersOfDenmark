@@ -18,11 +18,11 @@ namespace UnitTests.WorkshopTests
     {
         private readonly WorkshopService _sut;
         private readonly Mock<IWorkshopRepository> workshopRepoMock = new Mock<IWorkshopRepository>();
-        private readonly Mock<IUnitOfWork> unitOfWork = new Mock<IUnitOfWork>();
+        private readonly Mock<IDbContext> context = new Mock<IDbContext>();
 
         public CreateWorkshopTests()
         {
-            _sut = new WorkshopService(workshopRepoMock.Object, unitOfWork.Object);
+            _sut = new WorkshopService(workshopRepoMock.Object, context.Object);
         }
 
         [Theory]
@@ -55,7 +55,7 @@ namespace UnitTests.WorkshopTests
             };
 
             //Act
-            unitOfWork.Setup(x => x.SaveChangesAsync()).ReturnsAsync(true);
+            context.Setup(x => x.SaveChangesAsync()).ReturnsAsync(true);
             var result = await _sut.Create(workshop);
 
             //Assert

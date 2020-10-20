@@ -14,12 +14,13 @@ namespace Application.Services
     public class WorkshopService : IWorkshopService
     {
         private readonly IWorkshopRepository workshopRepository;
-        private readonly IUnitOfWork uow;
+        private readonly IDbContext context;
 
-        public WorkshopService(IWorkshopRepository workshopRepository, IUnitOfWork uow)
+        public WorkshopService(IWorkshopRepository workshopRepository, IDbContext context)
         {
             this.workshopRepository = workshopRepository;
-            this.uow = uow;
+            this.context = context;
+
         }
         public async Task<bool> Create(CreateWorkshopViewModel ws)
         {
@@ -34,8 +35,8 @@ namespace Application.Services
                                         ws.CvrNumber,
                                         ws.SchooldId);
 
-            var workshop = workshopRepository.Create(model);
-            var result = await uow.SaveChangesAsync();
+            context.Workshops.Add(model);
+            var result = await context.SaveChangesAsync();
 
             return result;
         }

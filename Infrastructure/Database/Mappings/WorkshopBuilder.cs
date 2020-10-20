@@ -15,9 +15,9 @@ namespace Infrastructure.Database.Mappings
             builder.OwnsOne(x => x.Address);
             builder.OwnsOne(x => x.Phone);
 
-            builder.HasOne(x => x.Calendar)
-                   .WithOne(x => x.Workshop)
-                   .HasForeignKey<Workshop>(x => x.CalendarId);
+            //builder.HasOne(x => x.Calendar)
+            //       .WithOne(x => x.Workshop)
+            //       .HasForeignKey<Workshop>(x => x.CalendarId);
 
         }
     }

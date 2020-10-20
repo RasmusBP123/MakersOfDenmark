@@ -58,9 +58,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Access")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CalendarId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("CvrNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -84,9 +81,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CalendarId")
-                        .IsUnique();
-
                     b.ToTable("Workshops");
                 });
 
@@ -101,12 +95,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Workshop", b =>
                 {
-                    b.HasOne("Domain.Calendar", "Calendar")
-                        .WithOne("Workshop")
-                        .HasForeignKey("Domain.Workshop", "CalendarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.OwnsOne("Domain.ValueObjects.Location", "Address", b1 =>
                         {
                             b1.Property<Guid>("WorkshopId")

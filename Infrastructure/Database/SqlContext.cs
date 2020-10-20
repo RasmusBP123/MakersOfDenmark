@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Database
 {
-    public class SqlContext : DbContext, IDbContext, IUnitOfWork
+    public class SqlContext : DbContext, IDbContext
     {
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            
         }
 
         public DbSet<Workshop> Workshops { get; set; }
@@ -19,14 +19,13 @@ namespace Infrastructure.Database
 
         public async Task<bool> SaveChangesAsync()
         {
-            var result = await base.SaveChangesAsync();
-            return (result > 0);
+            return (await base.SaveChangesAsync() > 0);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new WorkshopBuilder());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

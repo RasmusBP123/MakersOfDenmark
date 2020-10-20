@@ -17,10 +17,9 @@ namespace Infrastructure.Repositories
         {
             this.context = context;
         }
-        public Workshop Create(Workshop workshop)
+        public void Add(Workshop workshop)
         {
-            var ws = context.Workshops.Add(workshop);
-            return ws.Entity;
+            context.Workshops.Add(workshop);
         }
 
         public async Task Delete(Guid id)

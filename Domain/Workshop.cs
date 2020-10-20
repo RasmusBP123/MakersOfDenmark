@@ -15,15 +15,15 @@ namespace Domain
         public Location Address { get; set; }
         public string Url { get; set; }
         public string FacebookLink { get; set; }
-        public Calendar Calendar { get; set; } = new Calendar();
-        public Guid CalendarId { get; set; }
+        //public Calendar Calendar { get; set; } = new Calendar();
+        //public Guid CalendarId { get; set; }
         public WorkshopTypes Type { get; set; }
         public AccessType Access { get; set; }
         public Phone Phone { get; set; }
         public string CvrNumber { get; set; }
         public Guid? SchooldId { get; set; }
 
-        private Workshop() { }
+        public Workshop() { }
 
         public static Workshop Create(string name, 
                                       string address, 
