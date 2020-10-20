@@ -11,8 +11,15 @@ namespace Application.Mappings
     {
         public DomainToViewModelsMap()
         {
-            CreateMap<Workshop, GetListWorkshopViewModel>();
-            CreateMap<Workshop, GetSingleWorkshopViewModel>();
+            CreateMap<Workshop, GetListWorkshopViewModel>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Location.Address))
+                .ForMember(dest => dest.Zipcode, opt => opt.MapFrom(src => src.Location.Zipcode))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Number));
+
+            CreateMap<Workshop, GetSingleWorkshopViewModel>()
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Location.Address))
+                .ForMember(dest => dest.Zipcode, opt => opt.MapFrom(src => src.Location.Zipcode))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Number));
         }
     }
 }

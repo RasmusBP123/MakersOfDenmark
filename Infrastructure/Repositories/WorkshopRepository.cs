@@ -30,7 +30,9 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Workshop>> GetAll()
         {
-            var workshops = await context.Workshops.ToListAsync();
+            var workshops = await context.Workshops.Include(x => x.Location)
+                                                   .Include(x => x.Phone)
+                                                   .ToListAsync();
             return workshops;
         }
 

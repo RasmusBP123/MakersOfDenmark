@@ -113,9 +113,11 @@ namespace Infrastructure.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Address")
+                                .HasColumnName("Address")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Zipcode")
+                                .HasColumnName("Zipcode")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("WorkshopId");
@@ -132,6 +134,7 @@ namespace Infrastructure.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Number")
+                                .HasColumnName("Number")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("WorkshopId");

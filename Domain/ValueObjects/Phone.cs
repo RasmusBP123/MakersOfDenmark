@@ -6,6 +6,7 @@ namespace Domain.ValueObjects
 {
     public class Phone
     {
+        public string Number { get; }
         public Phone(string number)
         {
             if (number.Length == 8)
@@ -13,6 +14,8 @@ namespace Domain.ValueObjects
                 Number = number;
             }
         }
-        public string Number { get; }
+        private Phone()
+        { }
+
     }
 }

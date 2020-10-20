@@ -39,7 +39,7 @@ namespace MakersOfDenmark.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await service.Delete(id);

@@ -11,6 +11,10 @@ namespace Domain.ValueObjects
             Address = address;
             Zipcode = zipcode;
         }
+        private Location()
+        {
+
+        }
         public string Address { get; }
         public string Zipcode { get;}
 

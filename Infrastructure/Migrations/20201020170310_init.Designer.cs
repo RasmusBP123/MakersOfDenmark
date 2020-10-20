@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20201020150604_init")]
+    [Migration("20201020170310_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,9 +115,11 @@ namespace Infrastructure.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Address")
+                                .HasColumnName("Address")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Zipcode")
+                                .HasColumnName("Zipcode")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("WorkshopId");
@@ -134,6 +136,7 @@ namespace Infrastructure.Migrations
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Number")
+                                .HasColumnName("Number")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("WorkshopId");

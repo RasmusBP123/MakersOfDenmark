@@ -45,11 +45,6 @@ namespace Application.Services
             return result;
         }
 
-        public async Task Delete(Guid id)
-        {
-            await workshopRepository.Delete(id);
-            await uow.SaveChangesAsync();
-        }
 
         public async Task<IEnumerable<GetListWorkshopViewModel>> GetAll()
         {
@@ -57,15 +52,23 @@ namespace Application.Services
             var viewModels = mapper.Map<IEnumerable<GetListWorkshopViewModel>>(workshops);
 
             return viewModels;
-
         }
 
         public async Task<GetSingleWorkshopViewModel> GetById(Guid id)
         {
+            if (id == null || Guid.Empty == id)
+                return null;
+            
             var workshop = await workshopRepository.GetById(id);
             var viewmodel = mapper.Map<GetSingleWorkshopViewModel>(workshop);
 
             return viewmodel;
+        }
+
+        public async Task Delete(Guid id)
+        {
+            await workshopRepository.Delete(id);
+            await uow.SaveChangesAsync();
         }
     }
 }
