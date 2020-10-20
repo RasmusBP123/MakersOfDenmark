@@ -49,7 +49,7 @@ namespace Application.Services
         public async Task<IEnumerable<GetListWorkshopViewModel>> GetAll()
         {
             var workshops = await workshopRepository.GetAll();
-
+            return null;
 
         }
 
