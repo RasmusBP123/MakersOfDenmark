@@ -15,7 +15,7 @@ public class AuthService : IAuthService
         _signInManager = signInManager;
     }
 
-    public async Task<IdentityResult> CreateUser(ApplicationUser user)
+    public Task<IdentityResult> CreateUser(ApplicationUser user)
     {
         //user.UserName = user.Email;
         //user.EmailConfirmed = true;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,10 @@ namespace MakersOfDenmark
         public void ConfigureServices(IServiceCollection services)
         {
             services.RegisterInfrastructure(Configuration);
+            services.RegisterApplication();
+
+            services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddControllers();
         }
 

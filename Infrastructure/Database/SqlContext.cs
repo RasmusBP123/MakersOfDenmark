@@ -2,14 +2,11 @@
 using Domain.Abstractions;
 using Infrastructure.Database.Mappings;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Database
 {
-    public class SqlContext : DbContext, IDbContext
+    public class SqlContext : DbContext, IDbContext, IUnitOfWork
     {
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
@@ -22,7 +19,8 @@ namespace Infrastructure.Database
 
         public async Task<bool> SaveChangesAsync()
         {
-            return (await base.SaveChangesAsync() > 0);
+            var result = await base.SaveChangesAsync();
+            return (result > 0);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
