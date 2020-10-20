@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Domain.Abstractions;
+using Infrastructure.Database.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,18 @@ namespace Infrastructure.Database
         }
 
         public DbSet<Workshop> Workshops { get; set; }
-        public DbSet<ApplicationUser> Users { get ; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
 
         public async Task<bool> SaveChangesAsync()
         {
             return (await base.SaveChangesAsync() > 0);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new WorkshopBuilder());
         }
     }
 }
