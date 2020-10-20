@@ -30,7 +30,7 @@ namespace MakersOfDenmark
             services.RegisterInfrastructure(Configuration);
             services.RegisterApplication();
 
-            services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            //services.AddMvc().AddJsonOptions(a => a.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddControllers();
         }
