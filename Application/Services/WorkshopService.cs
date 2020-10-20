@@ -14,13 +14,12 @@ namespace Application.Services
     public class WorkshopService : IWorkshopService
     {
         private readonly IWorkshopRepository workshopRepository;
-        private readonly IDbContext context;
+        private readonly IUnitOfWork uow;
 
-        public WorkshopService(IWorkshopRepository workshopRepository, IDbContext context)
+        public WorkshopService(IWorkshopRepository workshopRepository, IUnitOfWork uow)
         {
             this.workshopRepository = workshopRepository;
-            this.context = context;
-
+            this.uow = uow;
         }
         public async Task<bool> Create(CreateWorkshopViewModel ws)
         {
@@ -35,20 +34,23 @@ namespace Application.Services
                                         ws.CvrNumber,
                                         ws.SchooldId);
 
-            context.Workshops.Add(model);
-            var result = await context.SaveChangesAsync();
+            workshopRepository.Add(model);
+            var result = await uow.SaveChangesAsync();
 
             return result;
         }
 
-        public Task Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+            await workshopRepository.Delete(id);
+            await uow.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<CreateWorkshopViewModel>> GetAll()
+        public async Task<IEnumerable<GetListWorkshopViewModel>> GetAll()
         {
-            throw new NotImplementedException();
+            var workshops = await workshopRepository.GetAll();
+
+
         }
 
         public Task<GetSingleWorkshopViewModel> GetById(Guid id)

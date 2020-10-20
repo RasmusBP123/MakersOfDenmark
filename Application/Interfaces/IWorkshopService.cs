@@ -10,7 +10,7 @@ namespace Application.Interfaces
     public interface IWorkshopService
     {
         Task<bool> Create(CreateWorkshopViewModel workshop);
-        Task<IEnumerable<CreateWorkshopViewModel>> GetAll();
+        Task<IEnumerable<GetListWorkshopViewModel>> GetAll();
         Task<GetSingleWorkshopViewModel> GetById(Guid id);
         Task Delete(Guid id);
     }

@@ -10,6 +10,7 @@ using static Domain.Enums.Enums;
 using Application.ViewModels;
 using System.Threading.Tasks;
 using Domain.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnitTests.WorkshopTests
 {
@@ -56,6 +57,7 @@ namespace UnitTests.WorkshopTests
 
             //Act
             context.Setup(x => x.SaveChangesAsync()).ReturnsAsync(true);
+
             var result = await _sut.Create(workshop);
 
             //Assert

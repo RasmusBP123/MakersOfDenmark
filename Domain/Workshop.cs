@@ -12,11 +12,11 @@ namespace Domain
         public Guid Id { get; set; }
         public string Name { get; set; }
         public byte[] Logo { get; set; }
-        public Location Address { get; set; }
+        public Location Location { get; set; }
         public string Url { get; set; }
         public string FacebookLink { get; set; }
-        //public Calendar Calendar { get; set; } = new Calendar();
-        //public Guid CalendarId { get; set; }
+        public Calendar Calendar { get; set; } = new Calendar();
+        public Guid CalendarId { get; set; }
         public WorkshopTypes Type { get; set; }
         public AccessType Access { get; set; }
         public Phone Phone { get; set; }
@@ -39,7 +39,7 @@ namespace Domain
             return new Workshop
             {
                 Name = name,
-                Address = new Location
+                Location = new Location
                 {
                     Address = address,
                     Zipcode = zipcode
