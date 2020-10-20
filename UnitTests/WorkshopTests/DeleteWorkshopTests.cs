@@ -16,12 +16,13 @@ namespace UnitTests.WorkshopTests
     {
         private readonly WorkshopService _sut;
         private readonly Mock<IWorkshopRepository> workshopRepoMock = new Mock<IWorkshopRepository>();
-        private readonly Mock<IDbContext> context = new Mock<IDbContext>();
-        private readonly Mock<IMapper> mapper = new Mock<IMapper>();
+
+        private readonly MockerFactory _mocker;
 
         public DeleteWorkshopTests()
         {
-            _sut = new WorkshopService(workshopRepoMock.Object, context.Object, mapper.Object);
+            _mocker = new MockerFactory();  
+            _sut = new WorkshopService(workshopRepoMock.Object, _mocker.Context.Object, _mocker.Mapper.Object);
         }
 
         [Fact]
@@ -32,7 +33,7 @@ namespace UnitTests.WorkshopTests
 
 
             workshopRepoMock.Setup(x => x.Delete(id)).Returns(Task.CompletedTask);
-            context.Setup(x => x.SaveChangesAsync()).ReturnsAsync(true);
+            _mocker.Context.Setup(x => x.SaveChangesAsync()).ReturnsAsync(true);
 
             var workshop = new Workshop
             {

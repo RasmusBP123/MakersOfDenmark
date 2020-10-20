@@ -18,12 +18,13 @@ namespace UnitTests.WorkshopTests
     {
         private readonly WorkshopService _sut;
         private readonly Mock<IWorkshopRepository> workshopRepoMock = new Mock<IWorkshopRepository>();
-        private readonly Mock<IDbContext> context = new Mock<IDbContext>();
-        private readonly Mock<IMapper> mapper = new Mock<IMapper>();
+
+        private readonly MockerFactory _mocker;
 
         public GetWorkshopTests()
         {
-            _sut = new WorkshopService(workshopRepoMock.Object, context.Object, mapper.Object);
+            _mocker = new MockerFactory();
+            _sut = new WorkshopService(workshopRepoMock.Object, _mocker.Context.Object, _mocker.Mapper.Object);
         }
 
         [Fact]
@@ -69,7 +70,7 @@ namespace UnitTests.WorkshopTests
             };
 
             workshopRepoMock.Setup(x => x.GetAll()).ReturnsAsync(workshops);
-            mapper.Setup(x => x.Map<IEnumerable<GetListWorkshopViewModel>>(workshops)).Returns(expected);
+            _mocker.Mapper.Setup(x => x.Map<IEnumerable<GetListWorkshopViewModel>>(workshops)).Returns(expected);
 
             //Act
             var actual = await _sut.GetAll();
@@ -98,7 +99,7 @@ namespace UnitTests.WorkshopTests
             };
 
             workshopRepoMock.Setup(x => x.GetById(workshop.Id)).ReturnsAsync(workshop);
-            mapper.Setup(x => x.Map<GetSingleWorkshopViewModel>(workshop)).Returns(viewModel);
+            _mocker.Mapper.Setup(x => x.Map<GetSingleWorkshopViewModel>(workshop)).Returns(viewModel);
 
             //Arrange
             var actual = await _sut.GetById(id);
