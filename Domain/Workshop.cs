@@ -39,11 +39,7 @@ namespace Domain
             return new Workshop
             {
                 Name = name,
-                Location = new Location
-                {
-                    Address = address,
-                    Zipcode = zipcode
-                },
+                Location = new Location(address, zipcode),
                 Logo = new byte[0],
                 Url = url,
                 FacebookLink = facebookLink,

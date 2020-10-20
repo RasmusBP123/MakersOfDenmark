@@ -15,6 +15,7 @@ namespace Application
         {
             services.AddScoped<IWorkshopService, WorkshopService>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             return services;
         }
     }

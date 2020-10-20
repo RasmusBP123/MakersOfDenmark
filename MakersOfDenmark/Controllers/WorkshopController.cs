@@ -18,12 +18,32 @@ namespace MakersOfDenmark.Controllers
             this.service = service;
         }
 
-        [HttpPost]
-        [Route("create")]
-        public async Task<IActionResult> CreateWorkshop([FromBody]CreateWorkshopViewModel workshop)
+        [HttpGet()]
+        public async Task<IActionResult> GetAll()
+        {
+            var workshops = await service.GetAll();
+            return Ok(workshops);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var workshop = await service.GetById(id);
+            return Ok(workshop);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody]CreateWorkshopViewModel workshop)
         {
             await service.Create(workshop);
             return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await service.Delete(id);
+            return NoContent();
         }
     }
 }

@@ -11,6 +11,7 @@ using Application.ViewModels;
 using System.Threading.Tasks;
 using Domain.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace UnitTests.WorkshopTests
 {
@@ -20,10 +21,11 @@ namespace UnitTests.WorkshopTests
         private readonly WorkshopService _sut;
         private readonly Mock<IWorkshopRepository> workshopRepoMock = new Mock<IWorkshopRepository>();
         private readonly Mock<IDbContext> context = new Mock<IDbContext>();
+        private readonly Mock<IMapper> mapper = new Mock<IMapper>();
 
         public CreateWorkshopTests()
         {
-            _sut = new WorkshopService(workshopRepoMock.Object, context.Object);
+            _sut = new WorkshopService(workshopRepoMock.Object, context.Object, mapper.Object);
         }
 
         [Theory]
@@ -63,5 +65,8 @@ namespace UnitTests.WorkshopTests
             //Assert
             Assert.True(result);
         }
+
+
     }
+
 }

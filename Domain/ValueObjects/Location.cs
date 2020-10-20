@@ -6,8 +6,13 @@ namespace Domain.ValueObjects
 {
     public class Location
     {
-        public string Address { get; set; }
-        public string Zipcode { get; set; }
+        public Location(string address, string zipcode)
+        {
+            Address = address;
+            Zipcode = zipcode;
+        }
+        public string Address { get; }
+        public string Zipcode { get;}
 
     }
 }
