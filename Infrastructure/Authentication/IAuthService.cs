@@ -9,10 +9,10 @@ namespace Infrastructure.Authentication
 {
     public interface IAuthService
     {
-        Task<IdentityResult> CreateUser(string username, string password, string email, string firstName, string lastName);
-        Task<IdentityResult> ForgotPassword(ApplicationUser user, string password, string newPassword);
+        Task<IdentityResult> RegisterUser(string username, string password, string email, string firstName, string lastName, string phonenumber);
+        Task<IdentityResult> ForgotPassword(string userId, string newPassword);
         Task<IList<string>> GetRoles(string email);
-        Task<SignInResult> Login(ApplicationUser user, string password);
+        Task<SignInResult> Login(string username, string password);
         Task Logout();
     }
 }

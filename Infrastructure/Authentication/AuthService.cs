@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Domain;
 using Infrastructure.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 public class AuthService : IAuthService
@@ -15,7 +17,7 @@ public class AuthService : IAuthService
         _signInManager = signInManager;
     }
 
-    public async Task<IdentityResult> CreateUser(string username, string password, string email, string firstname, string lastname)
+    public async Task<IdentityResult> RegisterUser(string username, string password, string email, string firstname, string lastname, string phonenumber)
     {
         ApplicationUser user = new ApplicationUser
         {
@@ -23,24 +25,25 @@ public class AuthService : IAuthService
             Email = email,
             FirstName = firstname,
             LastName = lastname,
-            
+            PhoneNumber = phonenumber
         };
+
         var result = await _userManager.CreateAsync(user, password);
         if (result.Succeeded)
         {
             await _userManager.AddToRoleAsync(user, "USER");
-            if (user.UserName.StartsWith("admin"))
-            {
-                await _userManager.AddToRoleAsync(user, "ADMIN");
-            }
         }
 
-        return null;
+        return result;
     }
 
-    public async Task<IdentityResult> ForgotPassword(ApplicationUser user, string password, string newPassword)
+    public async Task<IdentityResult> ForgotPassword(string userId, string newPassword)
     {
-        return await _userManager.ResetPasswordAsync(user, password, newPassword);
+        var user = await _userManager.FindByIdAsync(userId);
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+        var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+        return result;
     }
 
     public async Task<IList<string>> GetRoles(string email)
@@ -52,20 +55,7 @@ public class AuthService : IAuthService
 
     public async Task<SignInResult> Login(string username, string password)
     {
-        ApplicationUser user = new ApplicationUser
-        {
-            UserName = username,
-            Email = email,
-            FirstName = firstname,
-            LastName = lastname,
-
-        };
-        var userbyemail = await _userManager.FindByEmailAsync("");
-        if (userbyemail == null)
-        {
-            return new SignInResult();
-        }
-        var result = await _signInManager.PasswordSignInAsync(userbyemail, password, false, false);
+        var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
         return result;
     }
 
@@ -73,4 +63,5 @@ public class AuthService : IAuthService
     {
         await _signInManager.SignOutAsync();
     }
+
 }

@@ -1,12 +1,13 @@
 ﻿using Domain;
 using Domain.Abstractions;
 using Infrastructure.Database.Mappings;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Database
 {
-    public class SqlContext : DbContext, IDbContext
+    public class SqlContext : IdentityDbContext, IDbContext
     {
         public SqlContext(DbContextOptions<SqlContext> options) : base(options)
         {
@@ -26,6 +27,7 @@ namespace Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new WorkshopBuilder());
+            modelBuilder.ApplyConfiguration(new RoleBuilder());
             base.OnModelCreating(modelBuilder);
         }
     }
