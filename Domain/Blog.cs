@@ -11,20 +11,22 @@ namespace Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Post { get; set; }
+        public string FilePath { get; set; }
 
 
         public Blog() { }
 
         public static Blog Create(string title, string firstName,
                                       string lastName,
-                                      string post)
+                                      string post, string filePath)
         {
             return new Blog
             {
                 Title = title,
                 FirstName = firstName,
                 LastName = lastName,
-                Post = post
+                Post = post,
+                FilePath = filePath
             };
         }
     }

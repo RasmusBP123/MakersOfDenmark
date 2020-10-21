@@ -24,11 +24,11 @@ namespace Application.Services
             this.uow = uow;
             this.mapper = mapper;
         }
-        public async Task<bool> Create(CreateBlogViewModel ws)
+        public async Task<bool> Create(CreateBlogViewModel blog)
         {
-            var model = Blog.Create(ws.FirstName,
-                ws.LastName, 
-                ws.Post);
+            var model = Blog.Create(blog.Title,blog.FirstName,
+                blog.LastName, 
+                blog.Post, blog.FilePath);
 
             blogRepository.Add(model);
             var result = await uow.SaveChangesAsync();

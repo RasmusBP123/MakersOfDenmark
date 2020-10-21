@@ -12,5 +12,6 @@ namespace Application.Interfaces
         Task<IEnumerable<GetListBlogViewModel>> GetAll();
         Task<GetSingleBlogViewModel> GetById(Guid id);
         Task Delete(Guid id);
+        Task Upload();
     }
 }
