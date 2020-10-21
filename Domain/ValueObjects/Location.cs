@@ -18,5 +18,7 @@ namespace Domain.ValueObjects
         public string Address { get; }
         public string Zipcode { get;}
 
+        //Location_Address
+
     }
 }
