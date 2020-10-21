@@ -15,14 +15,11 @@ public class AuthService : IAuthService
         _signInManager = signInManager;
     }
 
-    public async Task<IdentityResult> CreateUser(string username, string password, string email, string firstname, string lastname)
+    public async Task<IdentityResult> CreateUser(string username, string password)
     {
         ApplicationUser user = new ApplicationUser
         {
             UserName = username,
-            Email = email,
-            FirstName = firstname,
-            LastName = lastname,
             
         };
         var result = await _userManager.CreateAsync(user, password);
@@ -52,14 +49,6 @@ public class AuthService : IAuthService
 
     public async Task<SignInResult> Login(string username, string password)
     {
-        ApplicationUser user = new ApplicationUser
-        {
-            UserName = username,
-            Email = email,
-            FirstName = firstname,
-            LastName = lastname,
-
-        };
         var userbyemail = await _userManager.FindByEmailAsync("");
         if (userbyemail == null)
         {
