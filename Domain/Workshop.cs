@@ -35,8 +35,7 @@ namespace Domain
                                       AccessType access,
                                       string phoneNumber,
                                       string cvrNumber,
-                                      Guid? schooldId,
-                                      bool approved)
+                                      Guid? schooldId)
         {
             return new Workshop
             {
@@ -50,7 +49,7 @@ namespace Domain
                 Phone = new Phone(phoneNumber),
                 CvrNumber = cvrNumber,
                 SchooldId = schooldId,
-                Approved = approved
+                Approved = false,
             };
         }
         

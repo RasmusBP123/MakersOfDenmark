@@ -69,11 +69,11 @@ namespace UnitTests.WorkshopTests
                 },
             };
 
-            workshopRepoMock.Setup(x => x.GetAll()).ReturnsAsync(workshops);
+            workshopRepoMock.Setup(x => x.GetAllApproved()).ReturnsAsync(workshops);
             _mocker.Mapper.Setup(x => x.Map<IEnumerable<GetListWorkshopViewModel>>(workshops)).Returns(expected);
 
             //Act
-            var actual = await _sut.GetAll();
+            var actual = await _sut.GetAllApproved();
 
             //Assert
             Assert.NotNull(actual);

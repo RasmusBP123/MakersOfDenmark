@@ -22,7 +22,7 @@ namespace Infrastructure.Database.Mappings
             {
                 Id = "2",
                 Name = "WorkspaceAdmin",
-                NormalizedName = "ADMIN",
+                NormalizedName = "WORKSPACEADMIN",
                 ConcurrencyStamp = "C2A4B11D-221E-41D4-94A7-77747CD1B1DD",
             });
             builder.HasData(new IdentityRole

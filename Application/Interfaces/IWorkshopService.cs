@@ -9,9 +9,11 @@ namespace Application.Interfaces
 {
     public interface IWorkshopService
     {
+        Task<IEnumerable<GetListWorkshopViewModel>> GetAllApproved();
+        Task<IEnumerable<GetListWorkshopViewModel>> GetAllPending();
         Task<bool> Create(CreateWorkshopViewModel workshop);
-        Task<IEnumerable<GetListWorkshopViewModel>> GetAll();
         Task<GetSingleWorkshopViewModel> GetById(Guid id);
+        Task<GetSingleWorkshopViewModel> ToggleApprovedStateOfWorkshop(Guid id); 
         Task Delete(Guid id);
     }
 }

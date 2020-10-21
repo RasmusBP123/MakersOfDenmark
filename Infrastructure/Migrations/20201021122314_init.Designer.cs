@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20201021110846_addedroles")]
-    partial class addedroles
+    [Migration("20201021122314_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Access")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("CalendarId")
                         .HasColumnType("uniqueidentifier");
@@ -125,6 +128,13 @@ namespace Infrastructure.Migrations
                             ConcurrencyStamp = "62b0f3e4-fa81-4b33-a5b4-9c21e8aa577f",
                             Name = "User",
                             NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            ConcurrencyStamp = "C2A4B11D-221E-41D4-94A7-77747CD1B1DD",
+                            Name = "WorkspaceAdmin",
+                            NormalizedName = "WORKSPACEADMIN"
                         },
                         new
                         {
