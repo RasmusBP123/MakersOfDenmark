@@ -1,0 +1,50 @@
+﻿@page "/AdmWorkshop"
+
+@using AdminApp.Data
+@using AdminApp.Shared.Workshops 
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<h1>Workshop Administration</h1>
+
+<p>Adminstrate workshops</p>
+
+@if (workshops == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workshop in workshops)
+            {
+                <tr>
+                    <td>@workshop.Name</td>
+                    @*<td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WorkshopModel[] workshops;
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        workshops = await Http.GetFromJsonAsync<WorkshopModel[]>("api/workshop");
+        StateHasChanged();
+    }
+}
