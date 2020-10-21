@@ -1,7 +1,7 @@
 ﻿@page "/AdmWorkshop"
 
 @using AdminApp.Data
-@using AdminApp.Shared.Workshops 
+@using AdminApp.Shared.Workshops
 @using System.Net.Http.Json
 @inject HttpClient Http
 
@@ -9,7 +9,7 @@
 
 <p>Adminstrate workshops</p>
 
-@if (workshops == null)
+@if (approvedWorkshops == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -18,20 +18,35 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Navn</th>
+                <th>Godkendt</th>
+
             </tr>
         </thead>
         <tbody>
-            @foreach (var workshop in workshops)
+            @foreach (var workshop in approvedWorkshops)
             {
                 <tr>
                     <td>@workshop.Name</td>
-                    @*<td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>*@
+                    <td @onclick="@(() => ChangeApprovedState(workshop))">@workshop.Approved</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Godkendt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workshop in pendingWorkshops)
+            {
+                <tr>
+                    <td>@workshop.Name</td>
+                    <td @onclick="@(() => ChangeApprovedState(workshop))">@workshop.Approved</td>
+                    @*<button @onClick="ChangeApprovedState"></button>*@ 
                 </tr>
             }
         </tbody>
@@ -39,12 +54,18 @@ else
 }
 
 @code {
-    private WorkshopModel[] workshops;
+    private WorkshopModel[] approvedWorkshops;
+    private WorkshopModel[] pendingWorkshops;
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        workshops = await Http.GetFromJsonAsync<WorkshopModel[]>("api/workshop");
+        approvedWorkshops = await Http.GetFromJsonAsync<WorkshopModel[]>("api/workshop");
+        pendingWorkshops = await Http.GetFromJsonAsync<WorkshopModel[]>("api/workshop/pending");
         StateHasChanged();
+    }
+    private async Task ChangeApprovedState(WorkshopModel workshop)
+    {
+        await Http.GetAsync("api/workshop/approve/" + workshop.Id);
     }
 }
