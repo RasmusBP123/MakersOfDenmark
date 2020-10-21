@@ -19,5 +19,6 @@ namespace Application.ViewModels.Workshop
         public string Phone { get; set; }
         public string CvrNumber { get; set; }
         public Guid? SchooldId { get; set; }
+        public bool Approved { get; set; }
     }
 }

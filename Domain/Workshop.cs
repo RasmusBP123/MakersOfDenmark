@@ -22,6 +22,7 @@ namespace Domain
         public Phone Phone { get; set; }
         public string CvrNumber { get; set; }
         public Guid? SchooldId { get; set; }
+        public bool Approved { get; set; }
 
         public Workshop() { }
 
@@ -34,7 +35,8 @@ namespace Domain
                                       AccessType access,
                                       string phoneNumber,
                                       string cvrNumber,
-                                      Guid? schooldId)
+                                      Guid? schooldId,
+                                      bool approved)
         {
             return new Workshop
             {
@@ -47,7 +49,8 @@ namespace Domain
                 Access = access,
                 Phone = new Phone(phoneNumber),
                 CvrNumber = cvrNumber,
-                SchooldId = schooldId
+                SchooldId = schooldId,
+                Approved = approved
             };
         }
         
