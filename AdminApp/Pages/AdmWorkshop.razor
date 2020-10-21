@@ -26,10 +26,11 @@ else
         <tbody>
             @foreach (var workshop in approvedWorkshops)
             {
-                <tr>
-                    <td>@workshop.Name</td>
-                    <td @onclick="@(() => ChangeApprovedState(workshop))">@workshop.Approved</td>
-                </tr>
+            <tr>
+                <td>@workshop.Name</td>
+                <td>@workshop.Approved</td>
+                <td><button @onclick="@(() => ChangeApprovedState(workshop))" /> </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -45,8 +46,9 @@ else
             {
                 <tr>
                     <td>@workshop.Name</td>
-                    <td @onclick="@(() => ChangeApprovedState(workshop))">@workshop.Approved</td>
-                    @*<button @onClick="ChangeApprovedState"></button>*@ 
+                    <td >@workshop.Approved</td>
+                    <td><button @onclick="@(() => ChangeApprovedState(workshop))"/> </td>
+                    
                 </tr>
             }
         </tbody>
@@ -56,7 +58,7 @@ else
 @code {
     private WorkshopModel[] approvedWorkshops;
     private WorkshopModel[] pendingWorkshops;
-    private WeatherForecast[] forecasts;
+    
 
     protected override async Task OnInitializedAsync()
     {
