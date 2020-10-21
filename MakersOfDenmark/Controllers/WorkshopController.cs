@@ -19,9 +19,9 @@ namespace MakersOfDenmark.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllApproved()
         {
-            var workshops = await service.GetAll();
+            var workshops = await service.GetAllApproved();
             return Ok(workshops);
         }
 
@@ -44,6 +44,13 @@ namespace MakersOfDenmark.Controllers
         {
             await service.Delete(id);
             return NoContent();
+        }
+
+        [HttpPost("approve/{id}")]
+        public async Task<IActionResult> ToggleApprovedStateOfWorkshop(Guid id)
+        {
+            var workshop = await service.ToggleApprovedStateOfWorkshop(id);
+            return Ok(workshop);
         }
     }
 }

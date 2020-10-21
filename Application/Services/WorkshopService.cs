@@ -26,14 +26,15 @@ namespace Application.Services
             this.uow = uow;
             this.mapper = mapper;
         }
+
         public async Task<bool> Create(CreateWorkshopViewModel ws)
         {
-            var model = Workshop.Create(ws.Name, 
-                                        ws.Address, 
+            var model = Workshop.Create(ws.Name,
+                                        ws.Address,
                                         ws.Zipcode,
-                                        ws.Url, 
+                                        ws.Url,
                                         ws.FacebookLink,
-                                        ws.Type, 
+                                        ws.Type,
                                         ws.Access,
                                         ws.Phone,
                                         ws.CvrNumber,
@@ -45,10 +46,9 @@ namespace Application.Services
             return result;
         }
 
-
-        public async Task<IEnumerable<GetListWorkshopViewModel>> GetAll()
+        public async Task<IEnumerable<GetListWorkshopViewModel>> GetAllApproved()
         {
-            var workshops = await workshopRepository.GetAll();
+            var workshops = await workshopRepository.GetAllApproved();
             var viewModels = mapper.Map<IEnumerable<GetListWorkshopViewModel>>(workshops);
 
             return viewModels;
@@ -69,6 +69,26 @@ namespace Application.Services
         {
             await workshopRepository.Delete(id);
             await uow.SaveChangesAsync();
+        }
+
+        public async Task<GetSingleWorkshopViewModel> ToggleApprovedStateOfWorkshop(Guid id)
+        {
+            var workshop = await workshopRepository.GetById(id);
+            workshop.Approved = !workshop.Approved;
+
+            await uow.SaveChangesAsync();
+
+            var viewModel = mapper.Map<GetSingleWorkshopViewModel>(workshop);
+
+            return viewModel;
+        }
+
+        public async Task<IEnumerable<GetListWorkshopViewModel>> GetAllPending()
+        {
+            var workshops = await workshopRepository.GetAllPending();
+            var viewModels = mapper.Map<IEnumerable<GetListWorkshopViewModel>>(workshops);
+
+            return viewModels;
         }
     }
 }

@@ -4,6 +4,7 @@ using Domain.Abstractions.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,11 +29,21 @@ namespace Infrastructure.Repositories
             context.Workshops.Remove(workshop);
         }
 
-        public async Task<IEnumerable<Workshop>> GetAll()
+        public async Task<IEnumerable<Workshop>> GetAllApproved()
         {
             var workshops = await context.Workshops.Include(x => x.Location)
                                                    .Include(x => x.Phone)
+                                                   .Where(x => x.Approved == true)
                                                    .ToListAsync();
+            return workshops;
+        }
+
+        public async Task<IEnumerable<Workshop>> GetAllPending()
+        {
+            var workshops = await context.Workshops.Include(x => x.Location)
+                                          .Include(x => x.Phone)
+                                          .Where(x => x.Approved == false)
+                                          .ToListAsync();
             return workshops;
         }
 

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class addedroles : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -201,7 +201,8 @@ namespace Infrastructure.Migrations
                     Access = table.Column<int>(nullable: false),
                     Number = table.Column<string>(nullable: true),
                     CvrNumber = table.Column<string>(nullable: true),
-                    SchooldId = table.Column<Guid>(nullable: true)
+                    SchooldId = table.Column<Guid>(nullable: true),
+                    Approved = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,6 +219,11 @@ namespace Infrastructure.Migrations
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[] { "1", "62b0f3e4-fa81-4b33-a5b4-9c21e8aa577f", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "2", "C2A4B11D-221E-41D4-94A7-77747CD1B1DD", "WorkspaceAdmin", "WORKSPACEADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
