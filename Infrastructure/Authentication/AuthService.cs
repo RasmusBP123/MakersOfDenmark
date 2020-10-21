@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain;
-using Domain.Abstractions.Authentication;
+using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Identity;
 
 public class AuthService : IAuthService
@@ -15,19 +15,25 @@ public class AuthService : IAuthService
         _signInManager = signInManager;
     }
 
-    public Task<IdentityResult> CreateUser(ApplicationUser user)
+    public async Task<IdentityResult> CreateUser(string username, string password, string email, string firstname, string lastname)
     {
-        //user.UserName = user.Email;
-        //user.EmailConfirmed = true;
-        //var result = await _userManager.CreateAsync(user, user.PasswordHash);
-        //if (result.Succeeded)
-        //{
-        //    await _userManager.AddToRoleAsync(user, "USER");
-        //    if (user.UserName.StartsWith("admin"))
-        //    {
-        //        await _userManager.AddToRoleAsync(user, "ADMIN");
-        //    }
-        //}
+        ApplicationUser user = new ApplicationUser
+        {
+            UserName = username,
+            Email = email,
+            FirstName = firstname,
+            LastName = lastname,
+            
+        };
+        var result = await _userManager.CreateAsync(user, password);
+        if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, "USER");
+            if (user.UserName.StartsWith("admin"))
+            {
+                await _userManager.AddToRoleAsync(user, "ADMIN");
+            }
+        }
 
         return null;
     }
@@ -44,8 +50,16 @@ public class AuthService : IAuthService
         return roles;
     }
 
-    public async Task<SignInResult> Login(ApplicationUser user, string password)
+    public async Task<SignInResult> Login(string username, string password)
     {
+        ApplicationUser user = new ApplicationUser
+        {
+            UserName = username,
+            Email = email,
+            FirstName = firstname,
+            LastName = lastname,
+
+        };
         var userbyemail = await _userManager.FindByEmailAsync("");
         if (userbyemail == null)
         {
