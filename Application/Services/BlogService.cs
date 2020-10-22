@@ -26,9 +26,10 @@ namespace Application.Services
         }
         public async Task<bool> Create(CreateBlogViewModel blog)
         {
-            var model = Blog.Create(blog.Title,blog.FirstName,
+            var model = Blog.Create(blog.Title, blog.UserId, blog.FirstName,
                 blog.LastName, 
-                blog.Post, blog.FilePath);
+                blog.Post, blog.UrlPath);
+
 
             blogRepository.Add(model);
             var result = await uow.SaveChangesAsync();
