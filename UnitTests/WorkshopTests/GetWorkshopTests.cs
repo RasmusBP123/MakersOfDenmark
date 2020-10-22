@@ -1,14 +1,11 @@
 ﻿using Application.Services;
 using Application.ViewModels.Workshop;
-using AutoMapper;
 using Domain;
-using Domain.Abstractions;
 using Domain.Abstractions.Repositories;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,7 +25,7 @@ namespace UnitTests.WorkshopTests
         }
 
         [Fact]
-        public async Task ShouldGetAllWorkshops()
+        public async Task Should_Return_2_Approved_WorkshopViewModels()
         {
             //Arrange
             var workshops = new List<Workshop>
@@ -37,16 +34,19 @@ namespace UnitTests.WorkshopTests
                 {
                     Id = Guid.NewGuid(),
                     Name = "My workshop",
+                    Approved = true,
                 },
                 new Workshop
                 {
                     Id = Guid.NewGuid(),
                     Name = "Ucl Fablab",
+                    Approved = true,
                 },
                 new Workshop
                 {
                     Id = Guid.NewGuid(),
                     Name = "Aalborg Fablab",
+                    Approved = false,
                 },
             };
 
@@ -56,16 +56,19 @@ namespace UnitTests.WorkshopTests
                 {
                     Id = Guid.NewGuid(),
                     Name = "My workshop",
+                    Approved = true,
                 },
                 new GetListWorkshopViewModel
                 {
                     Id = Guid.NewGuid(),
                     Name = "Ucl Fablab",
+                    Approved = true,
                 },
                 new GetListWorkshopViewModel
                 {
                     Id = Guid.NewGuid(),
                     Name = "Aalborg Fablab",
+                    Approved = false,
                 },
             };
 
@@ -76,10 +79,12 @@ namespace UnitTests.WorkshopTests
             var actual = await _sut.GetAllApproved();
 
             //Assert
+
+            workshopRepoMock.Verify(x => x.GetAllApproved(), Times.Exactly(1));
             Assert.NotNull(actual);
+            Assert.Equal(2, actual.Where(x => x.Approved).Count());
             Assert.Equal(expected[0].Name, actual.ToList()[0].Name);
             Assert.Equal(expected[0].Id, actual.ToList()[0].Id);
-            Assert.Equal(expected.Count(), actual.Count());
         }
 
         [Fact]

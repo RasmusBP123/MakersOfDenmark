@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Infrastructure.Authentication;
 using Domain;
 using Application.ViewModels.Account;
+using Application.Interfaces;
 
 namespace MakersOfDenmark.Controllers
 {
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly IAuthService authservice;
+        private readonly IAuthServiceProvider authservice;
 
-        public AccountController(IAuthService authservice)
+        public AccountController(IAuthServiceProvider authservice)
         {
             this.authservice = authservice;
         }
@@ -22,25 +23,16 @@ namespace MakersOfDenmark.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel loginModel) 
         {
-            var result = await authservice.Login(loginModel.Username, loginModel.Password);
-            if (result.Succeeded)
-            {
-                return Ok(result.Succeeded);
-            }
-            return BadRequest(result.Succeeded);
+            var result = await authservice.Login(loginModel);
+            return Ok(result);
         }
 
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterAccountViewModel account)
         {
-            var result = await authservice.RegisterUser(account.Username, 
-                                                        account.Password,
-                                                        account.Email, 
-                                                        account.Firstname,
-                                                        account.Lastname, 
-                                                        account.Phonenumber);
-            return Ok();
+            var result = await authservice.RegisterUser(account);
+            return Ok(result);
         }
 
         [HttpPost("logout")]
@@ -54,8 +46,7 @@ namespace MakersOfDenmark.Controllers
         [HttpPost("forgotpassword")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel forgotPasswordViewModel)
         {
-            var result = await authservice.ForgotPassword(forgotPasswordViewModel.Id,
-                                                          forgotPasswordViewModel.NewPassword);
+            var result = await authservice.ForgotPassword(forgotPasswordViewModel);
             return Ok();
         }
     }
