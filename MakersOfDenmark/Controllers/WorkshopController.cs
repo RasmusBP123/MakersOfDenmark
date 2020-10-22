@@ -46,11 +46,17 @@ namespace MakersOfDenmark.Controllers
             return NoContent();
         }
 
-        [HttpPost("approve/{id}")]
+        [HttpGet("approve/{id}")]
         public async Task<IActionResult> ToggleApprovedStateOfWorkshop(Guid id)
         {
             var workshop = await service.ToggleApprovedStateOfWorkshop(id);
             return Ok(workshop);
+        }
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetAllPendingWorkshops()
+        {
+           var pendingWorkshops = await service.GetAllPending();
+            return Ok(pendingWorkshops);
         }
     }
 }
