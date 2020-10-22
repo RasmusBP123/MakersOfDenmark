@@ -1,6 +1,6 @@
 ﻿@page "/AdmWorkshop"
 
-@using AdminApp.Data
+
 @using AdminApp.Shared.Workshops
 @using System.Net.Http.Json
 @inject HttpClient Http
@@ -29,7 +29,7 @@ else
             <tr>
                 <td>@workshop.Name</td>
                 <td>@workshop.Approved</td>
-                <td><button @onclick="@(() => ChangeApprovedState(workshop))" /> </td>
+                <td><button @onclick="@(() => ChangeApprovedState(workshop))"  title="Fjern Godkendelse"> Fjern Godkendelse </button>  </td>
             </tr>
             }
         </tbody>
@@ -47,7 +47,7 @@ else
                 <tr>
                     <td>@workshop.Name</td>
                     <td >@workshop.Approved</td>
-                    <td><button @onclick="@(() => ChangeApprovedState(workshop))"/> </td>
+                    <td><button @onclick="@(() => ChangeApprovedState(workshop))">Godkend</button> </td>
                     
                 </tr>
             }
