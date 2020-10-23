@@ -46,6 +46,11 @@ public class AuthService : IAuthService
         return new Response(result.Succeeded, null, null);
     }
 
+    public Task<SignInResult> Login(ApplicationUser user, string password)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public async Task Logout()
     {
         await _signInManager.SignOutAsync();

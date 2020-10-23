@@ -65,8 +65,5 @@ namespace UnitTests.WorkshopTests
             //Assert
             Assert.True(result);
         }
-
-
     }
-
 }

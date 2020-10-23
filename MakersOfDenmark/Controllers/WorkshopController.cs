@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Interfaces;
 using Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MakersOfDenmark.Controllers
@@ -33,6 +34,7 @@ namespace MakersOfDenmark.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([FromBody]CreateWorkshopViewModel workshop)
         {
             await service.Create(workshop);
@@ -40,6 +42,7 @@ namespace MakersOfDenmark.Controllers
         }
 
         [HttpDelete("delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await service.Delete(id);
@@ -47,12 +50,15 @@ namespace MakersOfDenmark.Controllers
         }
 
         [HttpGet("approve/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ToggleApprovedStateOfWorkshop(Guid id)
         {
             var workshop = await service.ToggleApprovedStateOfWorkshop(id);
             return Ok(workshop);
         }
+
         [HttpGet("pending")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllPendingWorkshops()
         {
            var pendingWorkshops = await service.GetAllPending();
