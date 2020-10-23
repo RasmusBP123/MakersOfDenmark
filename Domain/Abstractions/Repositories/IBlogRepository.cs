@@ -11,6 +11,5 @@ namespace Domain.Abstractions.Repositories
         Task<IEnumerable<Blog>> GetAll();
         Task<Blog> GetById(Guid id);
         Task Delete(Guid id);
-        Task Upload();
     }
 }
