@@ -29,6 +29,7 @@ namespace Infrastructure.Database
         {
             modelBuilder.ApplyConfiguration(new WorkshopBuilder());
             modelBuilder.ApplyConfiguration(new RoleBuilder());
+            modelBuilder.ApplyConfiguration(new BlogBuilder());
             base.OnModelCreating(modelBuilder);
         }
     }

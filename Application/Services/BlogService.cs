@@ -1,4 +1,5 @@
-﻿using Application.ViewModels.Blog;
+﻿using Application.Interfaces;
+using Application.ViewModels.Blog;
 using AutoMapper;
 using Domain;
 using Domain.Abstractions;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class BlogService
+    public class BlogService : IBlogService
     {
         private readonly IBlogRepository blogRepository;
         private readonly IUnitOfWork uow;

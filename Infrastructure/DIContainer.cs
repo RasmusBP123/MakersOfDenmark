@@ -22,6 +22,7 @@ namespace Infrastructure
 
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IWorkshopRepository, WorkshopRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddRoles<IdentityRole>()
