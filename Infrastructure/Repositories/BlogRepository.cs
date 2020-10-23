@@ -1,9 +1,9 @@
 ﻿using Domain;
 using Domain.Abstractions;
 using Domain.Abstractions.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 
