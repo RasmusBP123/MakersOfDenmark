@@ -18,6 +18,7 @@ namespace Infrastructure.Database
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Blog> Blog { get; set; }
 
         public async Task<bool> SaveChangesAsync()
         {
@@ -28,6 +29,7 @@ namespace Infrastructure.Database
         {
             modelBuilder.ApplyConfiguration(new WorkshopBuilder());
             modelBuilder.ApplyConfiguration(new RoleBuilder());
+            modelBuilder.ApplyConfiguration(new BlogBuilder());
             base.OnModelCreating(modelBuilder);
         }
     }
