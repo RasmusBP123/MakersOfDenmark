@@ -15,7 +15,9 @@ namespace Application
         {
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IWorkshopService, WorkshopService>();
+            services.AddScoped<IAuthServiceProvider, AuthServiceProvider>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
             return services;
         }

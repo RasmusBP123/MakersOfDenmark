@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Security.Claims;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain;
+using Domain.Responses;
 using Infrastructure.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 public class AuthService : IAuthService
@@ -17,16 +17,8 @@ public class AuthService : IAuthService
         _signInManager = signInManager;
     }
 
-    public async Task<IdentityResult> RegisterUser(string username, string password, string email, string firstname, string lastname, string phonenumber)
+    public async Task<Response> RegisterUser(ApplicationUser user, string password)
     {
-        ApplicationUser user = new ApplicationUser
-        {
-            UserName = username,
-            Email = email,
-            FirstName = firstname,
-            LastName = lastname,
-            PhoneNumber = phonenumber
-        };
 
         var result = await _userManager.CreateAsync(user, password);
         if (result.Succeeded)
@@ -34,7 +26,9 @@ public class AuthService : IAuthService
             await _userManager.AddToRoleAsync(user, "USER");
         }
 
-        return result;
+        var response = new Response(result.Succeeded, null, result.Errors.Select(x => x.Description).ToList());
+
+        return response;
     }
 
     public async Task<IdentityResult> ForgotPassword(string userId, string newPassword)
@@ -46,22 +40,19 @@ public class AuthService : IAuthService
         return result;
     }
 
-    public async Task<IList<string>> GetRoles(string email)
-    {
-        var user = await _userManager.FindByEmailAsync(email);
-        var roles = await _userManager.GetRolesAsync(user);
-        return roles;
-    }
-
-    public async Task<SignInResult> Login(string username, string password)
+    public async Task<Response> Login(string username, string password)
     {
         var result = await _signInManager.PasswordSignInAsync(username, password, true, false);
-        return result;
+        return new Response(result.Succeeded, null, null);
+    }
+
+    public Task<SignInResult> Login(ApplicationUser user, string password)
+    {
+        throw new System.NotImplementedException();
     }
 
     public async Task Logout()
     {
         await _signInManager.SignOutAsync();
     }
-
 }

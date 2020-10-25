@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using AdminApp.Data;
+
 using System.Net.Http;
 
 namespace AdminApp
@@ -29,7 +29,6 @@ namespace AdminApp
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped(sp =>
     new HttpClient
     {

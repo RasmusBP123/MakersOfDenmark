@@ -30,8 +30,7 @@ namespace UnitTests.WorkshopTests
         }
 
         [Theory]
-        [InlineData("UCL Workshop", "Seebladsgade 31", "5000", "https://ucl.dk", "facebook.com/ucl", WorkshopTypes.Association, AccessType.Membership, "28929173", "12125", null)]
-        [InlineData("Aalborg Workshop", "Bredgade 1", "9000", "https://aalborg.dk", "facebook.com/aalborg", WorkshopTypes.Association, AccessType.Other, "20512511", "1254634", null)]
+        [ClassData(typeof(WorkshopDataGenerator))]
         public async Task ShouldCreateValidWorkshop(string name,
                                               string address,
                                               string zipcode,
@@ -66,8 +65,5 @@ namespace UnitTests.WorkshopTests
             //Assert
             Assert.True(result);
         }
-
-
     }
-
 }
