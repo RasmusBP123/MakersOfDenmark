@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain;
@@ -22,12 +23,9 @@ public class AuthService : IAuthService
 
         var result = await _userManager.CreateAsync(user, password);
         if (result.Succeeded)
-        {
-            await _userManager.AddToRoleAsync(user, "USER");
-        }
+            await _userManager.AddToRoleAsync(user, RoleProvider.User);
 
         var response = new Response(result.Succeeded, null, result.Errors.Select(x => x.Description).ToList());
-
         return response;
     }
 
@@ -46,13 +44,33 @@ public class AuthService : IAuthService
         return new Response(result.Succeeded, null, null);
     }
 
-    public Task<SignInResult> Login(ApplicationUser user, string password)
+    public async Task<IdentityResult> DeleteUser(string userId)
     {
-        throw new System.NotImplementedException();
+        var user = await _userManager.FindByIdAsync(userId);
+        var result = await _userManager.DeleteAsync(user);
+
+        return result;
     }
 
     public async Task Logout()
     {
         await _signInManager.SignOutAsync();
     }
+
+    public async Task<Response> MakeUserWorkspaceAdmin(Guid userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            return new Response(false, null, new List<string> { "User was not found" });
+
+        var result = await _userManager.AddToRoleAsync(user, RoleProvider.WorkspaceAdmin);
+        return new Response(result.Succeeded, null, result.Errors.Select(x => x.Description).ToList());
+    }
+
+    protected static class RoleProvider
+    {
+        public static string User { get; } = "User";
+        public static string Admin { get; } = "Admin";
+        public static string WorkspaceAdmin { get; } = "WorkspaceAdmin";
+    } 
 }

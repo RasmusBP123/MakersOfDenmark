@@ -20,7 +20,6 @@ namespace Infrastructure
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWorkshopRepository, WorkshopRepository>();
 

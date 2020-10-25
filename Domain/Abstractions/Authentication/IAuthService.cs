@@ -13,6 +13,8 @@ namespace Infrastructure.Authentication
         Task<Response> RegisterUser(ApplicationUser user, string password);
         Task<IdentityResult> ForgotPassword(string userId, string newPassword);
         Task<Response> Login(string username, string password);
+        Task<IdentityResult> DeleteUser(string userId);
+        Task<Response> MakeUserWorkspaceAdmin(Guid userId);
         Task Logout();
     }
 }

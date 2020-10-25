@@ -6,7 +6,9 @@ using Domain.Abstractions.Repositories;
 using Domain.Responses;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Application.Services
@@ -50,6 +52,18 @@ namespace Application.Services
         public async Task<IdentityResult> ForgotPassword(ForgotPasswordViewModel forgotPasswordModel)
         {
             var result = await service.ForgotPassword(forgotPasswordModel.Id, forgotPasswordModel.NewPassword);
+            return result;
+        }
+
+        public async Task<Response> DeleteUser(Guid id)
+        {
+            var result = await service.DeleteUser(id.ToString());
+            return new Response(result.Succeeded, null, result.Errors.Select(x => x.Description).ToList());
+        }
+
+        public async Task<Response> MakeUserWorkspaceAdmin(Guid userId)
+        {
+            var result = await service.MakeUserWorkspaceAdmin(userId);
             return result;
         }
     }

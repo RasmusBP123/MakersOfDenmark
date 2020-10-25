@@ -2,6 +2,7 @@
 using Domain.Abstractions;
 using Domain.Abstractions.Repositories;
 using Domain.Responses;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,5 +34,6 @@ namespace Infrastructure.Repositories
 
             return false;
         }
+
     }
 }

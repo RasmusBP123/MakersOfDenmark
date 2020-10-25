@@ -42,12 +42,25 @@ namespace MakersOfDenmark.Controllers
             return Ok();
         }
 
-
         [HttpPost("forgotpassword")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel forgotPasswordViewModel)
         {
             var result = await authservice.ForgotPassword(forgotPasswordViewModel);
-            return Ok();
+            return Ok(result);
+        }
+
+        [HttpPost("promote/{userId}")]
+        public async Task<IActionResult> MakeUserWorkspaceAdmin([FromRoute]Guid userId)
+        {
+            var result = await authservice.MakeUserWorkspaceAdmin(userId);
+            return Ok(result);
+        }
+
+        [HttpPost("delete/{userId}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            var result = await authservice.DeleteUser(userId);
+            return Ok(result);
         }
     }
 }
