@@ -12,5 +12,6 @@ namespace Domain.Abstractions
         public DbSet<Workshop> Workshops { get; set; }
         public DbSet<Calendar> Calendars { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<Blog> Blog { get; set; }
     }
 }

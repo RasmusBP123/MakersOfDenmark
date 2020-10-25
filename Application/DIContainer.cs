@@ -13,6 +13,7 @@ namespace Application
     {
         public static IServiceCollection RegisterApplication(this IServiceCollection services)
         {
+            services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IWorkshopService, WorkshopService>();
             services.AddScoped<IAuthServiceProvider, AuthServiceProvider>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

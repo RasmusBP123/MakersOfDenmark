@@ -1,5 +1,4 @@
-﻿using Application.ViewModels.Account;
-using Application.ViewModels.Workshop;
+﻿using Application.ViewModels.Workshop;
 using AutoMapper;
 using Domain;
 using System;
@@ -21,6 +20,8 @@ namespace Application.Mappings
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Location.Address))
                 .ForMember(dest => dest.Zipcode, opt => opt.MapFrom(src => src.Location.Zipcode))
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Number));
+            CreateMap<Blog, GetListBlogViewModel>();
+            CreateMap<Blog, GetSingleBlogViewModel>();
 
             CreateMap<RegisterAccountViewModel, ApplicationUser>();
         }
