@@ -1,4 +1,6 @@
-﻿using Application.ViewModels.Workshop;
+﻿using Application.ViewModels.Account;
+using Application.ViewModels.Blog;
+using Application.ViewModels.Workshop;
 using AutoMapper;
 using Domain;
 using System;
