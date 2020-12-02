@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MakersOfDenmark.Controllers
 {
-    [Route("api/workshop")]
+    [Route("api/[controller]")]
     public class WorkshopController : Controller
     {
         private readonly IWorkshopService service;
@@ -34,8 +34,7 @@ namespace MakersOfDenmark.Controllers
         }
 
         [HttpPost("create")]
-        [Authorize(Roles = "User")]
-        public async Task<IActionResult> Create([FromBody]CreateWorkshopViewModel workshop)
+        public async Task<IActionResult> Create(CreateWorkshopViewModel workshop)
         {
             await service.Create(workshop);
             return Ok();
@@ -58,7 +57,6 @@ namespace MakersOfDenmark.Controllers
         }
 
         [HttpGet("pending")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllPendingWorkshops()
         {
            var pendingWorkshops = await service.GetAllPending();

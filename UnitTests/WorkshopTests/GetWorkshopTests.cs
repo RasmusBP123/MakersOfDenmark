@@ -90,7 +90,7 @@ namespace UnitTests.WorkshopTests
         [Fact]
         public async Task ShouldGetWorkshopById()
         {
-            var id = new Guid("CBB5A18D-8E33-49D7-ED84-08D87509D0DF");
+            var id = Guid.NewGuid();
 
             //Act
             var workshop = new Workshop()

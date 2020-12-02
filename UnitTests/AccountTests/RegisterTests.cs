@@ -8,6 +8,7 @@ using Moq;
 using System.Threading.Tasks;
 using UnitTests.WorkshopTests;
 using Xunit;
+using FluentAssertions;
 
 namespace UnitTests.AccountTests
 {
@@ -57,7 +58,9 @@ namespace UnitTests.AccountTests
 
             //Act
             var actual = await _sut.RegisterUser(userViewModel);
+
             //Assert
+            actual.IsSuccess.Should().Be(true, "Because email or username is unique and does not exist already");
             Assert.True(actual.IsSuccess);
         }
 

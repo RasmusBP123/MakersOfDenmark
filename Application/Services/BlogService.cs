@@ -31,7 +31,6 @@ namespace Application.Services
                 blog.LastName, 
                 blog.Post, blog.UrlPath);
 
-
             blogRepository.Add(model);
             var result = await uow.SaveChangesAsync();
 

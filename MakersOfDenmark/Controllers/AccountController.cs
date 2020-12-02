@@ -11,11 +11,11 @@ using Application.Interfaces;
 namespace MakersOfDenmark.Controllers
 {
     [Route("api/[controller]")]
-    public class AccountController : Controller
+    public class AuthController : Controller
     {
         private readonly IAuthServiceProvider authservice;
 
-        public AccountController(IAuthServiceProvider authservice)
+        public AuthController(IAuthServiceProvider authservice)
         {
             this.authservice = authservice;
         }

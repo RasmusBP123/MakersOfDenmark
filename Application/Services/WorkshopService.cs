@@ -7,7 +7,6 @@ using Domain.Abstractions;
 using Domain.Abstractions.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Services
